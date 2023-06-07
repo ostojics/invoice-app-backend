@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  Paid
+  Pending
+}
+
+model Invoice {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt()
+  billFromName    String
+  billFromEmail   String
+  billFromCity    String
+  billFromAddress String
+  billFromCountry String
+  billToName      String
+  billToEmail     String
+  billToCity      String
+  billToAddress   String
+  billToCountry   String
+  dueDate         DateTime
+  description     String
+  amount          Float
+  status          Status   @default(Pending)
+}
