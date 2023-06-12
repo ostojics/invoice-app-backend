@@ -5,5 +5,8 @@
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
-  }
+  },
+  "collectCoverageFrom": ["**/*.spec.ts", "**/*.int-spec.ts", "!**/node_modules/**"],
+  "coverageDirectory": "../coverage",
+  "coverageReporters": ["lcov", "text"]
 }
