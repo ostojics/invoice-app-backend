@@ -1,4 +1,4 @@
-import { CreateInvoiceDto } from '../../../dto/CreateInvoiceDto';
+import { CreateInvoiceDto } from '../../dto/CreateInvoiceDto';
 
 export const createInvoiceFixture: CreateInvoiceDto = {
   billFromEmail: 'billfrom@example.com',

@@ -1,9 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { AppModule } from '../../../app.module';
 import { PrismaService } from '../../../prisma/prisma.service';
-import { createInvoiceFixture } from './fixtures/createInvoice';
 import { InvoiceService } from '../../invoice.service';
 import { UpdateInvoiceDto } from '../../dto/UpdateInvoiceDto';
+import { createInvoiceFixture } from '../fixtures/createInvoice';
 
 describe('InvoiceService integration tests', () => {
   let prisma: PrismaService;
