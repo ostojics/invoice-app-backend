@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateInvoiceDto } from './dto/CreateInvoiceDto';
 import { UpdateInvoiceDto } from './dto/UpdateInvoiceDto';
@@ -19,6 +19,12 @@ export class InvoiceService {
   }
 
   async updateInvoice(id: number, data: UpdateInvoiceDto) {
+    const foundInvoice = await this.prisma.invoice.findUnique({
+      where: { id },
+    });
+
+    if (!foundInvoice) throw new BadRequestException('Invoice not found');
+
     const updatedInvoice = await this.prisma.invoice.update({
       where: { id },
       data,
@@ -28,6 +34,12 @@ export class InvoiceService {
   }
 
   async deleteInvoice(id: number) {
+    const foundInvoice = await this.prisma.invoice.findUnique({
+      where: { id },
+    });
+
+    if (!foundInvoice) throw new BadRequestException('Invoice not found');
+
     const deletedInvoice = await this.prisma.invoice.delete({
       where: { id },
     });
@@ -36,11 +48,27 @@ export class InvoiceService {
   }
 
   async markAsPaid(id: number) {
+    const foundInvoice = await this.prisma.invoice.findUnique({
+      where: { id },
+    });
+
+    if (!foundInvoice) throw new BadRequestException('Invoice not found');
+
     const updatedInvoice = await this.prisma.invoice.update({
       where: { id },
       data: { status: 'Paid' },
     });
 
     return updatedInvoice;
+  }
+
+  async getInvoiceById(id: number) {
+    const invoice = await this.prisma.invoice.findUnique({
+      where: { id },
+    });
+
+    if (!invoice) throw new BadRequestException('Invoice not found');
+
+    return invoice;
   }
 }
