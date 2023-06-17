@@ -4,6 +4,7 @@ import { PrismaService } from '../../../prisma/prisma.service';
 import { InvoiceService } from '../../invoice.service';
 import { UpdateInvoiceDto } from '../../dto/UpdateInvoiceDto';
 import { createInvoiceFixture } from '../fixtures/createInvoice';
+import { BadRequestException } from '@nestjs/common';
 
 describe('InvoiceService integration tests', () => {
   let prisma: PrismaService;
@@ -45,6 +46,20 @@ describe('InvoiceService integration tests', () => {
       const invoice = await invoiceService.markAsPaid(invoiceId);
 
       expect(invoice.status).toBe('Paid');
+    });
+
+    it('should return invoice when requested by id', async () => {
+      const invoice = await invoiceService.getInvoiceById(invoiceId);
+
+      expect(invoice).toBeDefined();
+    });
+
+    it('should not return an invoice when the id is invalid', async () => {
+      jest.spyOn(prisma.invoice, 'findUnique');
+
+      await expect(invoiceService.getInvoiceById(150)).rejects.toThrow(
+        BadRequestException,
+      );
     });
 
     it('should delete invoice', async () => {

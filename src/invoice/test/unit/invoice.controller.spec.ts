@@ -25,6 +25,9 @@ describe('InvoiceController', () => {
     markAsPaid: jest.fn((id: string) => {
       return { ...getInvoicesFixture[0], status: 'Paid' };
     }),
+    getInvoiceById: jest.fn((id: string) => {
+      return getInvoicesFixture[0];
+    }),
   };
 
   beforeEach(async () => {
@@ -77,5 +80,12 @@ describe('InvoiceController', () => {
 
     expect(invoice).toMatchObject({ amount: 3500 });
     expect(mockInvoiceService.updateInvoice).toHaveBeenCalled();
+  });
+
+  it('should get invoice by id', async () => {
+    const invoice = await controller.getInvoiceById('1');
+
+    expect(invoice).toMatchObject(getInvoicesFixture[0]);
+    expect(mockInvoiceService.getInvoiceById).toHaveBeenCalled();
   });
 });

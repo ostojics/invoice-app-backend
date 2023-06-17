@@ -39,4 +39,9 @@ export class InvoiceController {
   async markAsPaid(@Param('id') id: string) {
     return this.invoiceService.markAsPaid(parseInt(id));
   }
+
+  @Get(':id')
+  getInvoiceById(@Param('id') id: string) {
+    return this.invoiceService.getInvoiceById(parseInt(id));
+  }
 }
