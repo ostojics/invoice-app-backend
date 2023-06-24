@@ -7,7 +7,9 @@ import { UpdateInvoiceDto } from './dto/UpdateInvoiceDto';
 export class InvoiceService {
   constructor(private prisma: PrismaService) {}
   async getInvoices() {
-    return this.prisma.invoice.findMany();
+    return this.prisma.invoice.findMany({
+      orderBy: [{ id: 'asc' }],
+    });
   }
 
   async createInvoice(data: CreateInvoiceDto) {
