@@ -1,6 +1,7 @@
 # Setup
 
 ```
+yarn install
 docker compose up
 npx prisma migrate dev
 yarn start:dev
