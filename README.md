@@ -2,9 +2,9 @@
 
 ```
 yarn install
-docker compose up
-npx prisma migrate dev
-yarn start:dev
+docker compose up -d
+yarn db:setup
+yarn start
 ```
 
 NOTE: docker compose up will start the database required for the app to work, the commands after docker compose can be ran in a separate terminal
