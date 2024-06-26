@@ -30,7 +30,8 @@
     "pretest:int": "yarn db:restart && dotenv -e .env.test -- prisma migrate reset --force",
     "test:int": "dotenv -e .env.test -- jest -i --no-cache --watch --config jest-int.json",
     "posttest:int": "docker compose down",
-    "db:setup": "yarn run migrate && npx prisma generate"
+    "db:setup": "yarn run migrate && npx prisma generate",
+    "build:prod": "yarn run db:setup && yarn run build"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
